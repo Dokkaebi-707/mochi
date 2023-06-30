@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>모찌</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #fade-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-align: center;
+        }
+
+        #input-box {
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            height: 40px;
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid white;
+            border-radius: 4px;
+            outline: none;
+            background-color: transparent;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="fade-text">안녕 모찌~</div>
+
+        <div id="input-box">
+            <input type="text" id="user-input" placeholder="누구세용?">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var container = document.getElementById('container');
+            var fadeText = document.getElementById('fade-text');
+            var inputBox = document.getElementById('input-box');
+            var userInput = document.getElementById('user-input');
+
+            container.style.display = 'flex';
+            container.style.flexDirection = 'column';
+            container.style.justifyContent = 'center';
+            container.style.alignItems = 'center';
+
+            fadeText.style.opacity = '1';
+
+            setTimeout(function() {
+                fadeText.style.opacity = '0';
+
+                setTimeout(function() {
+                    fadeText.innerHTML = 'This is a little puzzle made just for you :)';
+                    fadeText.style.animationDuration = '2s';
+                    fadeText.style.opacity = '1';
+
+                    setTimeout(function() {
+                        fadeText.style.opacity = '0';
+
+                        setTimeout(function() {
+                            inputBox.style.opacity = '1';
+                            inputBox.style.display = 'flex';
+                            inputBox.style.justifyContent = 'center';
+                            userInput.focus();
+                        }, 2000); // 2000ms delay before displaying the input box
+                    }, 2000); // 2000ms delay before fading out the new text
+                }, 2000); // 2000ms delay before displaying the new text
+            }, 2000); // 2000ms delay before fading out the initial text
+
+            userInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    var input = userInput.value;
+                    if (input === '2002-08-15') {
+                        fadeText.innerHTML = '';
+                        location.href = 'stage1.html'; // Redirect to stage1.html
+                    } else if (input === '2001-09-15') {
+                        alert('나인 척하는 거야? ㅎㅎ');
+                    } else {
+                        fadeText.innerHTML = '';
+                        alert('까불지마');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
