@@ -20,9 +20,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            border: 20px solid transparent;
+            right: 0;
+            bottom: 0;
+            border: 4px solid transparent;
             animation: fadeBorder 2s forwards;
         }
 
@@ -40,11 +40,71 @@
             font-weight: bold;
             color: skyblue;
             opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             transition: opacity 1s ease-in-out;
             text-align: center;
+            animation: fadeInText 2s forwards;
         }
 
         @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #circle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .light-red {
+            background-color: lightcoral;
+        }
+
+        .light-orange {
+            background-color: lightsalmon;
+        }
+
+        .light-yellow {
+            background-color: lightyellow;
+        }
+
+        .light-green {
+            background-color: lightgreen;
+        }
+
+        .light-blue {
+            background-color: lightskyblue;
+        }
+
+        .light-purple {
+            background-color: lavender;
+        }
+
+        .fade-in {
+            animation: fadeInGrid 1s forwards;
+        }
+
+        @keyframes fadeInGrid {
             0% {
                 opacity: 0;
             }
@@ -58,13 +118,31 @@
     <div id="border">
         <div id="container">
             <div id="fade-text">잘했어 &lt;3</div>
+
+            <div id="circle-grid">
+                <div class="circle light-red"></div>
+                <div class="circle light-orange"></div>
+                <div class="circle light-yellow"></div>
+                <div class="circle light-green"></div>
+                <div class="circle light-blue"></div>
+                <div class="circle light-purple"></div>
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var fadeText = document.getElementById('fade-text');
-            fadeText.style.animation = 'fadeInText 2s forwards';
+            var circleGrid = document.getElementById('circle-grid');
+
+            fadeText.addEventListener('animationend', function() {
+                fadeText.style.opacity = '0';
+
+                setTimeout(function() {
+                    fadeText.style.display = 'none';
+                    circleGrid.classList.add('fade-in');
+                }, 1000); // 1000ms delay before fading in the circle grid
+            });
         });
     </script>
 </body>
