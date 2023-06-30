@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Stage 1</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body {
             background-color: black;
@@ -13,7 +12,6 @@
             align-items: center;
             height: 100vh;
             font-family: 'Arial', sans-serif;
-            overflow: hidden;
         }
 
         #border {
@@ -22,34 +20,74 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border: 4px solid transparent;
+            border: 4px solid skyblue;
+            opacity: 0;
             animation: fadeBorder 2s forwards;
         }
 
-        @keyframes fadeBorder {
-            0% {
-                border-color: transparent;
-            }
-            100% {
-                border-color: skyblue;
-            }
-        }
-
-        #fade-text {
-            font-size: 36px;
-            font-weight: bold;
-            color: skyblue;
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             opacity: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: opacity 1s ease-in-out;
-            text-align: center;
-            animation: fadeInText 2s forwards;
+            animation: fadeContainer 2s forwards;
+            animation-delay: 2s;
         }
 
-        @keyframes fadeInText {
+        #text {
+            color: skyblue;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeText 2s forwards;
+            animation-delay: 2s;
+        }
+
+        #circles {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(2, 100px);
+            gap: 10px;
+            opacity: 0;
+            animation: fadeCircles 2s forwards;
+            animation-delay: 4s;
+        }
+
+        .circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fadeCircle 1s forwards;
+        }
+
+        .circle-red {
+            background-color: lightcoral;
+        }
+
+        .circle-orange {
+            background-color: lightsalmon;
+        }
+
+        .circle-yellow {
+            background-color: lightyellow;
+        }
+
+        .circle-green {
+            background-color: lightgreen;
+        }
+
+        .circle-blue {
+            background-color: lightskyblue;
+        }
+
+        .circle-purple {
+            background-color: lavender;
+        }
+
+        @keyframes fadeBorder {
             0% {
                 opacity: 0;
             }
@@ -58,53 +96,37 @@
             }
         }
 
-        #circle-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        @keyframes fadeContainer {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
-        .circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+        @keyframes fadeText {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
         }
 
-        .light-red {
-            background-color: lightcoral;
+        @keyframes fadeCircles {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
-        .light-orange {
-            background-color: lightsalmon;
-        }
-
-        .light-yellow {
-            background-color: lightyellow;
-        }
-
-        .light-green {
-            background-color: lightgreen;
-        }
-
-        .light-blue {
-            background-color: lightskyblue;
-        }
-
-        .light-purple {
-            background-color: lavender;
-        }
-
-        .fade-in {
-            animation: fadeInGrid 1s forwards;
-        }
-
-        @keyframes fadeInGrid {
+        @keyframes fadeCircle {
             0% {
                 opacity: 0;
             }
@@ -115,35 +137,33 @@
     </style>
 </head>
 <body>
-    <div id="border">
-        <div id="container">
-            <div id="fade-text">잘했어 &lt;3</div>
+    <div id="border"></div>
 
-            <div id="circle-grid">
-                <div class="circle light-red"></div>
-                <div class="circle light-orange"></div>
-                <div class="circle light-yellow"></div>
-                <div class="circle light-green"></div>
-                <div class="circle light-blue"></div>
-                <div class="circle light-purple"></div>
-            </div>
+    <div id="container">
+        <div id="text">잘했어 &lt;3</div>
+
+        <div id="circles">
+            <div class="circle circle-red"></div>
+            <div class="circle circle-orange"></div>
+            <div class="circle circle-yellow"></div>
+            <div class="circle circle-green"></div>
+            <div class="circle circle-blue"></div>
+            <div class="circle circle-purple" onclick="transitionToStage2()"></div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var fadeText = document.getElementById('fade-text');
-            var circleGrid = document.getElementById('circle-grid');
+        // Function to transition to stage2.html with fade effect
+        function transitionToStage2() {
+            // Fade out the content
+            document.getElementById('border').style.opacity = '0';
+            document.getElementById('container').style.opacity = '0';
 
-            fadeText.addEventListener('animationend', function() {
-                fadeText.style.opacity = '0';
-
-                setTimeout(function() {
-                    fadeText.style.display = 'none';
-                    circleGrid.classList.add('fade-in');
-                }, 1000); // 1000ms delay before fading in the circle grid
-            });
-        });
+            // Wait for the animation to complete before redirecting to stage2.html
+            setTimeout(function() {
+                window.location.href = 'present/present.html';
+            }, 2000); // Delay the redirection for 2000ms (2 seconds)
+        }
     </script>
 </body>
 </html>
