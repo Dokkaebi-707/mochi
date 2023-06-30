@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Stage 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         body {
             background-color: black;
@@ -11,17 +12,21 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
         }
 
-        .border-animation {
-            position: absolute;
-            width: calc(100% - 40px);
-            height: calc(100% - 40px);
-            border: 2px solid transparent;
-            animation: borderFadeIn 2s ease-in-out forwards;
+        #border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 20px solid transparent;
+            animation: fadeBorder 2s forwards;
         }
 
-        @keyframes borderFadeIn {
+        @keyframes fadeBorder {
             0% {
                 border-color: transparent;
             }
@@ -29,22 +34,37 @@
                 border-color: skyblue;
             }
         }
+
+        #fade-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: skyblue;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="border-animation"></div>
+    <div id="border">
+        <div id="container">
+            <div id="fade-text">잘했어 &lt;3</div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var borderAnimation = document.querySelector('.border-animation');
-            var body = document.querySelector('body');
-
-            // Remove the animation class after the animation has finished
-            borderAnimation.addEventListener('animationend', function() {
-                borderAnimation.style.animation = 'none'; // Stop the animation
-                borderAnimation.style.borderColor = 'skyblue'; // Set the border color to skyblue
-                body.style.overflow = 'auto'; // Enable scrolling on the page
-            });
+            var fadeText = document.getElementById('fade-text');
+            fadeText.style.animation = 'fadeInText 2s forwards';
         });
     </script>
 </body>
